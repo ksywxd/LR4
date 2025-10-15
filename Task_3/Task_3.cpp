@@ -110,6 +110,7 @@ bool checkIsMatrix(int N, int** arr){
         }
     }
     if (sumDiagonal1 != MAINSUM || sumDiagonal2 != MAINSUM){
+        delete[] sumAllVerticalLines;
         return false;
     }
     delete[] sumAllVerticalLines;
