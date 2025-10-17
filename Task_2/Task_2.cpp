@@ -63,15 +63,15 @@ void checkInputArray(int& x){
 
 void Task() {
     int M = 0, N = 0;
-    std::cout << "Введите количество элементов в столбце:" << std::endl;
+    std::cout << "Enter the number of items in the column:" << std::endl;
     checkInputIntK(M);
-    std::cout << "Введите количество элементов в строке:" << std::endl;
+    std::cout << "Enter the number of items per line:" << std::endl;
     checkInputIntK(N);
 
     int arr[M][N];
     for (int i = 0; i < M; i++){
         for (int j = 0; j < N; j++){
-            std::cout << "Введите элемент a" << i << j  << ": "<< std::endl;
+            std::cout << "Enter element a" << i << j  << ": "<< std::endl;
             checkInputArray(arr[i][j]);
         }
     }
@@ -93,7 +93,7 @@ void Task() {
             count = (N * (N - 1)) / 2;
         }
         else {
-        std::cout << "Нет элементов выше побочной оси." << std::endl;
+        std::cout << "There are no elements above the secondary axis." << std::endl;
         }
     }
     int* arrHigher = new int[count];
@@ -108,7 +108,7 @@ void Task() {
             }
         }
     }
-    std::cout << "Максимальный элемент выше побочной оси: " << max << std::endl;
+    std::cout << "Maximum element above the secondary axis: " << max << std::endl;
 
     delete[] arrHigher;
 }
@@ -116,7 +116,7 @@ void Task() {
 void Menu() {
     std::cout << "\t Task 2\n";
     std::cout << "\tVariant 9\n" << std::endl;
-    std::wcout << "Найти максимальный элемент двумерного массива выше побочной оси.\n" << std::endl;
+    std::wcout << "Find the maximum element of a two-dimensional array above the secondary axis.\n" << std::endl;
     std::cout << "Creator: Kseniya Siamionava\n" << std:: endl;
 }
 
