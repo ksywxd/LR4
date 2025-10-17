@@ -4,7 +4,7 @@
 
 void checkInputChoice(int& choice) {
     while (true) {
-        std::cout << "Start?\n1. YES\n2. EXIT\n3. show menu\n";
+        std::cout << "Start?\n1.YES\n2.EXIT\n3.Show menu\n";
         std::string line;
         if (!std::getline(std::cin, line)) {
             std::cout << "Input error.\n";
@@ -85,8 +85,8 @@ void Task() {
     }
     std::cout << std::endl;
 
-    double *arrNegative = new double[negCount];
-    double *arrOther = new double[otherCount];
+    double* arrNegative = new double[negCount];
+    double* arrOther = new double[otherCount];
     int indexNeg = 0, indexOther = 0;
 
     for (int i = 0; i < k; i++){
