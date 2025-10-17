@@ -64,7 +64,7 @@ void checkInputArray(int& x){
 void InputArray(int N, int** arr){
     for (int i = 0; i < N; i++){
         for (int j = 0; j < N; j++){
-            std::cout << "Введите элемент a" << i << j << ": ";
+            std::cout << "Enter element a" << i << j << ": ";
             checkInputArray(arr[i][j]);
         }
     }
@@ -129,7 +129,7 @@ void ShowMatrix(int N, int** arr){
 
 void Task() {
     int N = 0;
-    std::cout << "Введите порядок матрицы(N):" << std::endl;
+    std::cout << "Enter Matrix Order(N):" << std::endl;
     checkInputIntK(N);
     int** arr = new int*[N];
 
@@ -141,9 +141,9 @@ void Task() {
     ShowMatrix(N, arr);
 
     if (checkIsMatrix(N, arr) == true){
-        std::cout << "Магическая матрица." << std::endl;
+        std::cout << "Magic square." << std::endl;
     } else {
-        std::cout << "Не магическая матрица." << std::endl;
+        std::cout << "Not a magic square." << std::endl;
     }
 
     for (int i = 0; i < N; i++){
@@ -155,7 +155,7 @@ void Task() {
 void Menu() {
     std::cout << "\t Task 2\n";
     std::cout << "\tVariant 9\n" << std::endl;
-    std::cout << "Найти максимальный элемент двумерного массива выше побочной оси.\n" << std::endl;
+    std::cout << "Find the maximum element of a two-dimensional array above the secondary axis.\n" << std::endl;
     std::cout << "Creator: Kseniya Siamionava\n" << std:: endl;
 }
 
