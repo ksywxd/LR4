@@ -96,7 +96,7 @@ void Task() {
         std::cout << "Нет элементов выше побочной оси." << std::endl;
         }
     }
-    int *arrHigher = new int[count];
+    int* arrHigher = new int[count];
 
     int count2 = 0;
     int max = arr[0][0];
