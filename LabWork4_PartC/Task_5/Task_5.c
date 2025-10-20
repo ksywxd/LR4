@@ -147,7 +147,7 @@ void checkInputCountBomb(int* countBomb, int M, int N){
             continue;
         }
 
-        if (strchr(line, '\n') == NULL){ // ИСПРАВЛЕНО
+        if (strchr(line, '\n') == NULL){
             int c;
             while ((c = getchar()) != '\n' && c != EOF);
             printf("Input too long.\n");

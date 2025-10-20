@@ -50,6 +50,13 @@ void checkInputInt(uint32_t* n) {
             continue;
         }
 
+        if (strchr(line, '\n') == NULL){
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+            printf("Input too long.\n");
+            continue;
+        }
+
         line[strcspn(line, "\n")] = 0;
 
         int valid = 1;
