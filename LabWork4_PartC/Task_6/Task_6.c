@@ -13,7 +13,7 @@ void checkInputChoice(int* choice) {
         }
         if (strchr(line, '\n') == NULL){
             int c;
-            while (c = getchar() != '\n' && c != EOF);
+            while ((c = getchar()) != '\n' && c != EOF);
             printf("Input too long.\n");
             continue;
         }
@@ -42,7 +42,7 @@ void checkInputChoice(int* choice) {
     }
 }
 
-void checkInputInt(int* n) {
+void checkInputInt(uint32_t* n) {
     char line[1000];
     while (1) {
         if (fgets(line, sizeof(line), stdin) == NULL) {
