@@ -13,7 +13,7 @@ void checkInputChoice(int* choice) {
         }
         if (strchr(line, '\n') == NULL){
             int c;
-            while (c = getchar() != '\n' && c != EOF);
+            while ((c = getchar()) != '\n' && c != EOF);
             printf("Input too long.\n");
             continue;
         }
@@ -50,6 +50,13 @@ void checkInputInt(int* k) {
             continue;
         }
 
+        if (strchr(line, '\n') == NULL){
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+            printf("Input too long.\n");
+            continue;
+        }
+
         line[strcspn(line, "\n")] = 0;
 
         int valid = 1;
@@ -72,7 +79,7 @@ void checkInputInt(int* k) {
     }
 }
 
-void checkInputArray(int* x) {
+void checkInputBomb(int* I, int* J, int M, int N) {
     char line[1000];
     while (1) {
         if (fgets(line, sizeof(line), stdin) == NULL) {
@@ -80,29 +87,10 @@ void checkInputArray(int* x) {
             continue;
         }
 
-        line[strcspn(line, "\n")] = 0;
-
-        int valid = 1;
-        for (int i = 0; line[i] != '\0'; i++) {
-            if (!isdigit(line[i]) && line[i] != '-') {
-                valid = 0;
-                break;
-            }
-        }
-
-        if (valid && sscanf(line, "%d", x) == 1) {
-            break;
-        } else {
-            printf("Incorrect input.\n");
-        }
-    }
-}
-
-void checkInputBomb(int* I, int* J, int M, int N) {
-    char line[1000];
-    while (1) {
-        if (fgets(line, sizeof(line), stdin) == NULL) {
-            printf("Input error.\n");
+        if (strchr(line, '\n') == NULL){
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+            printf("Input too long.\n");
             continue;
         }
 
@@ -130,10 +118,9 @@ void checkInputBomb(int* I, int* J, int M, int N) {
 }
 
 void printField(int** arr, int M, int N) {
-    printf("Final field:\n");
-    printf("  ");
+    printf("Final field:\n  ");
     for (int j = 0; j < N; j++) {
-        printf("%d ", j);
+        printf("%2d ", j);
     }
     printf("\n");
 
@@ -157,6 +144,13 @@ void checkInputCountBomb(int* countBomb, int M, int N){
     while (1) {
         if (fgets(line, sizeof(line), stdin) == NULL) {
             printf("Input error.\n");
+            continue;
+        }
+
+        if (strchr(line, '\n') == NULL){ // ИСПРАВЛЕНО
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+            printf("Input too long.\n");
             continue;
         }
 
