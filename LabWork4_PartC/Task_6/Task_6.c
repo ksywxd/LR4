@@ -231,8 +231,7 @@ void Task() {
 
 void Menu() {
     printf("\t Task 6\n");
-    printf("\tVariant 9\n\n");
-    printf("\n\n");
+    printf("Creat magic square\n\n");
     printf("Creator: Kseniya Siamionava\n\n");
 }
 

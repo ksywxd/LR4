@@ -192,8 +192,22 @@ void Task() {
     checkInputInt(&M);
 
     int** arr = (int**)malloc(M * sizeof(int*));
+    if (arr == NULL) {
+        printf("Ошибка выделения памяти!\n");
+        return;
+    }
+
     for (int i = 0; i < M; i++) {
         arr[i] = (int*)malloc(N * sizeof(int));
+        if (arr[i] == NULL) {
+            printf("Ошибка выделения памяти для строки %u!\n", i);
+
+            for (int j = 0; j < i; j++) {
+                free(arr[j]);
+            }
+            free(arr);
+            return;
+        }
         for (int j = 0; j < N; j++) {
             arr[i][j] = 0;
         }
@@ -280,7 +294,6 @@ void Task() {
 
 void Menu() {
     printf("\t Task 5\n");
-    printf("\tVariant 9\n\n");
     printf("Given a field\nin which the user enters the coordinates of the bombs.\nThe program displays a field with the final values\n\n");
     printf("Creator: Kseniya Siamionava\n\n");
 }
