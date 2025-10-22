@@ -26,7 +26,7 @@ void checkInputChoice(int* choice) {
 
         //только цифры
         int valid = 1;
-        for (int i = 0; line[i] != '\0'; i++) {
+        for (uint32_t i = 0; line[i] != '\0'; i++) {
             if (!isdigit(line[i])) {
                 valid = 0;
                 break;
@@ -68,7 +68,7 @@ void checkInputInt(uint32_t* n) {
         }
 
         int valid = 1;
-        for (int i = 0; line[i] != '\0'; i++) {
+        for (uint32_t i = 0; line[i] != '\0'; i++) {
             if (!isdigit((unsigned char)line[i])) {
                 valid = 0;
                 break;
@@ -101,43 +101,132 @@ void checkInputInt(uint32_t* n) {
     }
 }
 
+void printField(uint32_t** arr, uint32_t n) {
+    uint32_t maxVal = n * n;
+    int width = 0;
+    do {
+        width++;
+        maxVal /= 10;
+    } while (maxVal > 0);
 
+    printf("Final field:\n");
+
+    for (uint32_t i = 0; i < n; i++) {
+        for (uint32_t j = 0; j < n; j++) {
+            printf("%*u ", width, arr[i][j]);
+        }
+        printf("\n");
+    }
+}
 
 void Task() {
     uint32_t n;
     printf("Enter the order of the magic square: ");
     checkInputInt(&n);
-    uint32_t** arr = (uint32_t**)malloc(n * sizeof(uint32_t*));
-    for (int k = 0; k < n; k++) {
-        arr[k] = (uint32_t*)calloc(n, sizeof(uint32_t));
-    }
-    uint32_t i = 0;
-    uint32_t j = (n - 1) / 2;
-    for (uint32_t num = 1; num <= n * n; num++) {
-        uint32_t prevI = i;
-        uint32_t prevJ = j;
-        arr[i][j] = num;
-
-        i = (i == 0) ? n - 1 : i - 1;
-        j = (j == n - 1) ? 0 : j + 1;
-        if (arr[i][j] != 0) {
-            i = (prevI + 1) % n;
-            j = prevJ;
+    if (n % 2 == 1) {
+        uint32_t** arr = (uint32_t**)malloc(n * sizeof(uint32_t*));
+        if (arr == NULL) {
+            printf("Ошибка выделения памяти!\n");
+            return;
         }
-    }
-
-    for (uint32_t r = 0; r < n; r++) {
-        for (uint32_t c = 0; c < n; c++) {
-            printf("%4u ", arr[r][c]);
+        for (uint32_t k = 0; k < n; k++) {
+            arr[k] = (uint32_t*)calloc(n, sizeof(uint32_t));
+            if (arr[k] == NULL) {
+                printf("Ошибка выделения памяти для строки %u!\n", k);
+                for (uint32_t j = 0; j < k; j++) {
+                    free(arr[j]);
+                }
+                free(arr);
+                return;
+            }
         }
+        uint32_t i = 0;
+        uint32_t j = (n - 1) / 2;
+        for (uint32_t num = 1; num <= n * n; num++) {
+            uint32_t prevI = i;
+            uint32_t prevJ = j;
+            arr[i][j] = num;
+
+            i = (i == 0) ? n - 1 : i - 1;
+            j = (j == n - 1) ? 0 : j + 1;
+            if (arr[i][j] != 0) {
+                i = (prevI + 1) % n;
+                j = prevJ;
+            }
+        }
+
+        printField(arr, n);
         printf("\n");
-    }
 
+        for (uint32_t k = 0; k < n; k++) {
+            free(arr[k]);
+        }
+        free(arr);
+    } else {
+        if ((n % 4) == 0) {
+            uint32_t **arr = (uint32_t **)malloc(n * sizeof(uint32_t *));
+            if (arr == NULL) {
+                printf("Ошибка выделения памяти!\n");
+                return;
+            }
 
-    for (uint32_t k = 0; k < n; k++) {
-        free(arr[k]);
+            for (uint32_t i = 0; i < n; i++) {
+                arr[i] = (uint32_t *)malloc(n * sizeof(uint32_t));
+                if (arr[i] == NULL) {
+                    printf("Ошибка выделения памяти для строки %u!\n", i);
+
+                    for (uint32_t j = 0; j < i; j++) {
+                        free(arr[j]);
+                    }
+                    free(arr);
+                    return;
+                }
+            }
+
+            uint32_t count = 1;
+            for (uint32_t i = 0; i < n; i++) {
+                for (uint32_t j = 0; j < n; j++) {
+                    arr[i][j] = count++;
+                }
+            }
+
+            uint32_t k = n / 4;
+            uint32_t m = n / 2;
+            const uint32_t C = n * n + 1;
+
+            for (uint32_t i = 0; i < k; i++) { //верхний
+                for (uint32_t j = k; j < k + m; j++) {
+                    arr[i][j] = C - arr[i][j];
+                }
+            }
+
+            for (uint32_t i = k; i < k + m; i++) { //левый
+                for (uint32_t j = 0; j < k; j++) {
+                    arr[i][j] = C - arr[i][j];
+                }
+            }
+
+            for (uint32_t i = k; i < k + m; i++) { //правый
+                for (uint32_t j = k + m; j < n; j++) {
+                    arr[i][j] = C - arr[i][j];
+                }
+            }
+
+            for (uint32_t i = k + m; i < n; i++) { //нижний
+                for (uint32_t j = k; j < k + m; j++) {
+                    arr[i][j] = C - arr[i][j];
+                }
+            }
+
+            printField(arr, n);
+            printf("\n");
+
+            for (uint32_t q = 0; q < n; q++) {
+                free(arr[q]);
+            }
+            free(arr);
+        }
     }
-    free(arr);
 }
 
 void Menu() {
