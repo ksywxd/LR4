@@ -91,8 +91,8 @@ void checkInputInt(uint32_t* n) {
             printf("Number too large.\n");
             continue;
         }
-        if (val < 1) {
-            printf("Number must be >= 1.\n");
+        if (val < 3) {
+            printf("Number must be >= 3.\n");
             continue;
         }
 
@@ -223,6 +223,107 @@ void Task() {
 
             for (uint32_t q = 0; q < n; q++) {
                 free(arr[q]);
+            }
+            free(arr);
+        } else {
+            uint32_t **arr = (uint32_t **)malloc(n * sizeof(uint32_t *));
+            if (arr == NULL) {
+                printf("Ошибка выделения памяти!\n");
+                return;
+            }
+
+            for (uint32_t i = 0; i < n; i++) {
+                arr[i] = (uint32_t *)calloc(n, sizeof(uint32_t));
+                if (arr[i] == NULL) {
+                    printf("Ошибка выделения памяти для строки %u!\n", i);
+                    for (uint32_t j = 0; j < i; j++) {
+                        free(arr[j]);
+                    }
+                    free(arr);
+                    return;
+                }
+            }
+
+            // Разбиваем на 4 подквадрата нечетного порядка m = n/2
+            uint32_t m = n / 2;
+
+            // Создаем вспомогательный магический квадрат нечетного порядка
+            uint32_t** temp = (uint32_t**)malloc(m * sizeof(uint32_t*));
+            for (uint32_t i = 0; i < m; i++) {
+                temp[i] = (uint32_t*)calloc(m, sizeof(uint32_t));
+            }
+
+            // Заполняем вспомогательный квадрат сиамским методом
+            uint32_t i_temp = 0;
+            uint32_t j_temp = (m - 1) / 2;
+            for (uint32_t num = 1; num <= m * m; num++) {
+                uint32_t prevI = i_temp;
+                uint32_t prevJ = j_temp;
+                temp[i_temp][j_temp] = num;
+
+                i_temp = (i_temp == 0) ? m - 1 : i_temp - 1;
+                j_temp = (j_temp == m - 1) ? 0 : j_temp + 1;
+                if (temp[i_temp][j_temp] != 0) {
+                    i_temp = (prevI + 1) % m;
+                    j_temp = prevJ;
+                }
+            }
+
+            // Заполняем основные подквадраты
+            for (uint32_t i = 0; i < m; i++) {
+                for (uint32_t j = 0; j < m; j++) {
+                    // A quadrant (top-left)
+                    arr[i][j] = temp[i][j];
+                    // B quadrant (top-right) - добавляем m²
+                    arr[i][j + m] = temp[i][j] + 2 * m * m;
+                    // C quadrant (bottom-left) - добавляем 2m²
+                    arr[i + m][j] = temp[i][j] + 3 * m * m;
+                    // D quadrant (bottom-right) - добавляем 3m²
+                    arr[i + m][j + m] = temp[i][j] + m * m;
+                }
+            }
+
+            // Выполняем перестановки для однократно четного порядка
+            uint32_t k = (n - 2) / 4;
+
+            // Меняем местами столбцы в подквадратах A и D
+            for (uint32_t i = 0; i < m; i++) {
+                for (uint32_t j = 0; j < k; j++) {
+                    uint32_t temp_val = arr[i][j];
+                    arr[i][j] = arr[i + m][j];
+                    arr[i + m][j] = temp_val;
+                }
+            }
+
+            // Меняем местами последние k-1 столбцов в подквадратах B и C
+            for (uint32_t i = 0; i < m; i++) {
+                for (uint32_t j = n - k + 1; j < n; j++) {
+                    uint32_t temp_val = arr[i][j];
+                    arr[i][j] = arr[i + m][j];
+                    arr[i + m][j] = temp_val;
+                }
+            }
+
+            // Меняем центральные элементы
+            uint32_t temp_val = arr[k][0];
+            arr[k][0] = arr[k + m][0];
+            arr[k + m][0] = temp_val;
+
+            temp_val = arr[k][k];
+            arr[k][k] = arr[k + m][k];
+            arr[k + m][k] = temp_val;
+
+            printField(arr, n);
+            printf("\n");
+
+            // Освобождаем память
+            for (uint32_t i = 0; i < m; i++) {
+                free(temp[i]);
+            }
+            free(temp);
+
+            for (uint32_t i = 0; i < n; i++) {
+                free(arr[i]);
             }
             free(arr);
         }
