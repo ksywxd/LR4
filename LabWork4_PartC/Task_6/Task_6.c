@@ -126,13 +126,13 @@ void Task() {
     if (n % 2 == 1) {
         uint32_t** arr = (uint32_t**)malloc(n * sizeof(uint32_t*));
         if (arr == NULL) {
-            printf("Ошибка выделения памяти!\n");
+            printf("Memory issue\n");
             return;
         }
         for (uint32_t k = 0; k < n; k++) {
             arr[k] = (uint32_t*)calloc(n, sizeof(uint32_t));
             if (arr[k] == NULL) {
-                printf("Ошибка выделения памяти для строки %u!\n", k);
+                printf("Memory issue %u\n", k);
                 for (uint32_t j = 0; j < k; j++) {
                     free(arr[j]);
                 }
@@ -166,14 +166,14 @@ void Task() {
         if ((n % 4) == 0) {
             uint32_t **arr = (uint32_t **)malloc(n * sizeof(uint32_t *));
             if (arr == NULL) {
-                printf("Ошибка выделения памяти!\n");
+                printf("Memory issue.\n");
                 return;
             }
 
             for (uint32_t i = 0; i < n; i++) {
                 arr[i] = (uint32_t *)malloc(n * sizeof(uint32_t));
                 if (arr[i] == NULL) {
-                    printf("Ошибка выделения памяти для строки %u!\n", i);
+                    printf("Memory issue %u.\n", i);
 
                     for (uint32_t j = 0; j < i; j++) {
                         free(arr[j]);
@@ -228,14 +228,14 @@ void Task() {
         } else {
             uint32_t **arr = (uint32_t **)malloc(n * sizeof(uint32_t *));
             if (arr == NULL) {
-                printf("Ошибка выделения памяти!\n");
+                printf("Memory issue.\n");
                 return;
             }
 
             for (uint32_t i = 0; i < n; i++) {
                 arr[i] = (uint32_t *)calloc(n, sizeof(uint32_t));
                 if (arr[i] == NULL) {
-                    printf("Ошибка выделения памяти для строки %u!\n", i);
+                    printf("Memory issue %u\n", i);
                     for (uint32_t j = 0; j < i; j++) {
                         free(arr[j]);
                     }
@@ -244,16 +244,14 @@ void Task() {
                 }
             }
 
-            // Разбиваем на 4 подквадрата нечетного порядка m = n/2
+            //4 подквадрата нечет
             uint32_t m = n / 2;
 
-            // Создаем вспомогательный магический квадрат нечетного порядка
             uint32_t** temp = (uint32_t**)malloc(m * sizeof(uint32_t*));
             for (uint32_t i = 0; i < m; i++) {
                 temp[i] = (uint32_t*)calloc(m, sizeof(uint32_t));
             }
 
-            // Заполняем вспомогательный квадрат сиамским методом
             uint32_t i_temp = 0;
             uint32_t j_temp = (m - 1) / 2;
             for (uint32_t num = 1; num <= m * m; num++) {
@@ -269,24 +267,24 @@ void Task() {
                 }
             }
 
-            // Заполняем основные подквадраты
+            //подквадраты
             for (uint32_t i = 0; i < m; i++) {
                 for (uint32_t j = 0; j < m; j++) {
-                    // A quadrant (top-left)
+                    // A
                     arr[i][j] = temp[i][j];
-                    // B quadrant (top-right) - добавляем m²
+                    // B
                     arr[i][j + m] = temp[i][j] + 2 * m * m;
-                    // C quadrant (bottom-left) - добавляем 2m²
+                    // C
                     arr[i + m][j] = temp[i][j] + 3 * m * m;
-                    // D quadrant (bottom-right) - добавляем 3m²
+                    // D
                     arr[i + m][j + m] = temp[i][j] + m * m;
                 }
             }
 
-            // Выполняем перестановки для однократно четного порядка
+            //перестановки
             uint32_t k = (n - 2) / 4;
 
-            // Меняем местами столбцы в подквадратах A и D
+            // столбцы в A <-> D
             for (uint32_t i = 0; i < m; i++) {
                 for (uint32_t j = 0; j < k; j++) {
                     uint32_t temp_val = arr[i][j];
@@ -295,7 +293,7 @@ void Task() {
                 }
             }
 
-            // Меняем местами последние k-1 столбцов в подквадратах B и C
+            // k-1 столбцы в B <-> C
             for (uint32_t i = 0; i < m; i++) {
                 for (uint32_t j = n - k + 1; j < n; j++) {
                     uint32_t temp_val = arr[i][j];
@@ -304,7 +302,7 @@ void Task() {
                 }
             }
 
-            // Меняем центральные элементы
+            //центр эл
             uint32_t temp_val = arr[k][0];
             arr[k][0] = arr[k + m][0];
             arr[k + m][0] = temp_val;
@@ -316,7 +314,6 @@ void Task() {
             printField(arr, n);
             printf("\n");
 
-            // Освобождаем память
             for (uint32_t i = 0; i < m; i++) {
                 free(temp[i]);
             }
