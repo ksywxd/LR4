@@ -103,7 +103,7 @@ void checkInputInt(uint32_t* n) {
 
 void printField(uint32_t** arr, uint32_t n) {
     uint32_t maxVal = n * n;
-    int width = 0;
+    uint32_t width = 0;
     do {
         width++;
         maxVal /= 10;
