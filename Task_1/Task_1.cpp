@@ -1,9 +1,8 @@
 #include <iostream>
 #include <string>
 #include <sstream> //для 'сканера' текста (string stream)
-#include "include/func.h"
 
-/*void checkInputChoice(int& choice) {
+void checkInputChoice(int& choice) {
     while (true) {
         std::cout << "Start?\n1.YES\n2.EXIT\n3.Show menu\n";
         std::string line;
@@ -24,7 +23,7 @@
             std::cout << "Incorrect input. Enter a single number.\n";
         }
     }
-}*/
+}
 
 void checkInputIntK(int& k){
     while (true) {
@@ -64,13 +63,13 @@ void checkInputArray(double& x){
 }
 
 void Task() {
-    //int k;
-    std::cout << "You need to enter 5 elements of array." << std::endl;
-    //checkInputIntK(k);
-    double arr[5];
+    int k;
+    std::cout << "Enter the number of array elements: " << std::endl;
+    checkInputIntK(k);
+    double arr[k];
     int negCount = 0, otherCount = 0;
 
-    for (int i = 0; i < 5; i++){
+    for (int i = 0; i < k; i++){
         std::cout << "Enter " << i+1 << " number: " << std::endl;
         checkInputArray(arr[i]);
         if (arr[i] < 0){
@@ -81,7 +80,7 @@ void Task() {
     }
 
     std::cout << "Initial array: ";
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < k; i++) {
         std::cout << arr[i] << " ";
     }
     std::cout << std::endl;
@@ -90,7 +89,7 @@ void Task() {
     double* arrOther = new double[otherCount];
     int indexNeg = 0, indexOther = 0;
 
-    for (int i = 0; i < 5; i++){
+    for (int i = 0; i < k; i++){
         if (arr[i] < 0){
             arrNegative[indexNeg++] = arr[i];
         } else {
