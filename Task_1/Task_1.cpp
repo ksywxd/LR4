@@ -2,6 +2,8 @@
 #include <string>
 #include <sstream> //для 'сканера' текста (string stream)
 
+#include "include/func.h"
+
 /*void checkInputChoice(int& choice) {
     while (true) {
         std::cout << "Start?\n1.YES\n2.EXIT\n3.Show menu\n";
