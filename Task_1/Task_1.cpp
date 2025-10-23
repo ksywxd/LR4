@@ -25,7 +25,7 @@ void checkInputChoice(int& choice) {
     }
 }
 
-void checkInputIntK(int& k){
+/*void checkInputIntK(int& k){
     while (true) {
         std::string line;
         if (!std::getline(std::cin, line)) {
@@ -44,7 +44,7 @@ void checkInputIntK(int& k){
             std::cout << "Incorrect input.\n";
         }
     }
-}
+}*/
 
 void checkInputArray(double& x){
     while (true) {
@@ -63,13 +63,13 @@ void checkInputArray(double& x){
 }
 
 void Task() {
-    int k;
-    std::cout << "Enter the number of array elements: " << std::endl;
-    checkInputIntK(k);
+    //int k;
+    std::cout << "You need to enter 5 elements of array: " << std::endl;
+    //checkInputIntK(k);
     double arr[k];
     int negCount = 0, otherCount = 0;
 
-    for (int i = 0; i < k; i++){
+    for (int i = 0; i < 5; i++){
         std::cout << "Enter " << i+1 << " number: " << std::endl;
         checkInputArray(arr[i]);
         if (arr[i] < 0){
@@ -80,7 +80,7 @@ void Task() {
     }
 
     std::cout << "Initial array: ";
-    for (int i = 0; i < k; i++) {
+    for (int i = 0; i < 5; i++) {
         std::cout << arr[i] << " ";
     }
     std::cout << std::endl;
