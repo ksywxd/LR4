@@ -1,26 +1,28 @@
 #include "func.h"
-#include <iostream>
-#include <sstream>
 
-void checkInputChoice(int& choice) {
-    while (true) {
-        std::cout << "Start?\n1.YES\n2.EXIT\n3.Show menu\n";
-        std::string line;
-        if (!std::getline(std::cin, line)) {
-            std::cout << "Input error.\n";
-            continue;
+void splitArray(const double* inputArray, int size,
+                double*& negativeArray, int& negativeCount,
+                double*& otherArray, int& otherCount) {
+
+    negativeCount = 0;
+    otherCount = 0;
+    for (int i = 0; i < size; i++) {
+        if (inputArray[i] < 0) {
+            negativeCount++;
+        } else {
+            otherCount++;
         }
-        std::stringstream ss(line);
-        if (ss >> choice && ss.eof()) {
-            if (choice >= 1 && choice <= 3) {
-                break; // одно число в диапазоне и ничего больше
-            }
-            else {
-                std::cout << "Incorrect input. Enter 1, 2, or 3.\n";
-            }
-        }
-        else {
-            std::cout << "Incorrect input. Enter a single number.\n";
+    }
+
+    negativeArray = new double[negativeCount];
+    otherArray = new double[otherCount];
+
+    int negIndex = 0, otherIndex = 0;
+    for (int i = 0; i < size; i++) {
+        if (inputArray[i] < 0) {
+            negativeArray[negIndex++] = inputArray[i];
+        } else {
+            otherArray[otherIndex++] = inputArray[i];
         }
     }
 }

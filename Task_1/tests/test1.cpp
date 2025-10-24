@@ -1,48 +1,48 @@
 #include "func.h"
 #include <gtest/gtest.h>
-#include <sstream>
-#include <iostream>
 
-TEST(InputTest, Choice1) {
-    // Сохраняем оригинальные буферы
-    std::streambuf* original_cin = std::cin.rdbuf();
-    std::streambuf* original_cout = std::cout.rdbuf();
+TEST(SplitArrayTest, OnlyNegativeNumbers) {
+    double input[] = {-1.0, -2.2, -3.0};
+    double* negativeArray = nullptr;
+    double* otherArray = nullptr;
+    int negativeCount, otherCount;
 
-    // Перенаправляем ввод
-    std::stringstream test_input("1\n");
-    std::cin.rdbuf(test_input.rdbuf());
+    splitArray(input, 3, negativeArray, negativeCount, otherArray, otherCount);
 
-    // Перенаправляем вывод (чтобы не засорять консоль)
-    std::stringstream test_output;
-    std::cout.rdbuf(test_output.rdbuf());
+    EXPECT_EQ(negativeCount, 3);
+    EXPECT_EQ(otherCount, 0);
 
-    // Тестируем
-    int choice = 0;
-    checkInputChoice(choice);
-
-    // Проверяем
-    EXPECT_EQ(choice, 1);
-
-    // Восстанавливаем буферы
-    std::cin.rdbuf(original_cin);
-    std::cout.rdbuf(original_cout);
+    delete[] negativeArray;
+    delete[] otherArray;
 }
 
-TEST(InputTest, Choice2) {
-    std::streambuf* original_cin = std::cin.rdbuf();
-    std::streambuf* original_cout = std::cout.rdbuf();
+TEST(SplitArrayTest, OnlyPositiveAndZero) {
+    double input[] = {1.0, 0.0, 2.5, 3.0};
+    double* negativeArray = nullptr;
+    double* otherArray = nullptr;
+    int negativeCount, otherCount;
 
-    std::stringstream test_input("2\n");
-    std::cin.rdbuf(test_input.rdbuf());
+    splitArray(input, 4, negativeArray, negativeCount, otherArray, otherCount);
 
-    std::stringstream test_output;
-    std::cout.rdbuf(test_output.rdbuf());
+    EXPECT_EQ(negativeCount, 0);
+    EXPECT_EQ(otherCount, 4);
 
-    int choice = 0;
-    checkInputChoice(choice);
+    delete[] negativeArray;
+    delete[] otherArray;
+}
 
-    EXPECT_EQ(choice, 2);
+TEST(SplitArrayTest, MixedNumbers) {
+    double input[] = {1.0, -2.0, 0, -4.5, 3.0};
+    double* negativeArray = nullptr;
+    double* otherArray = nullptr;
+    int negativeCount, otherCount;
 
-    std::cin.rdbuf(original_cin);
-    std::cout.rdbuf(original_cout);
+    splitArray(input, 5, negativeArray, negativeCount, otherArray, otherCount);
+
+    // Проверяем количества
+    EXPECT_EQ(negativeCount, 2);
+    EXPECT_EQ(otherCount, 3);
+
+    delete[] negativeArray;
+    delete[] otherArray;
 }

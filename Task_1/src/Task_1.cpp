@@ -63,6 +63,33 @@ void checkInputArray(double& x){
     }
 }
 
+/*void splitArray(const double* inputArray, int size,
+                double*& negativeArray, int& negativeCount,
+                double*& otherArray, int& otherCount) {
+
+    negativeCount = 0;
+    otherCount = 0;
+    for (int i = 0; i < size; i++) {
+        if (inputArray[i] < 0) {
+            negativeCount++;
+        } else {
+            otherCount++;
+        }
+    }
+
+    negativeArray = new double[negativeCount];
+    otherArray = new double[otherCount];
+
+    int negIndex = 0, otherIndex = 0;
+    for (int i = 0; i < size; i++) {
+        if (inputArray[i] < 0) {
+            negativeArray[negIndex++] = inputArray[i];
+        } else {
+            otherArray[otherIndex++] = inputArray[i];
+        }
+    }
+}*/
+
 void Task() {
     //int k;
     std::cout << "You need to enter 5 elements of massive" << std::endl;
@@ -90,13 +117,7 @@ void Task() {
     double* arrOther = new double[otherCount];
     int indexNeg = 0, indexOther = 0;
 
-    for (int i = 0; i < 5; i++){
-        if (arr[i] < 0){
-            arrNegative[indexNeg++] = arr[i];
-        } else {
-            arrOther[indexOther++] = arr[i];
-        }
-    }
+    splitArray(arr, 5, arrNegative, negCount, arrOther, otherCount);
 
     if (negCount > 0){
         std::cout << "Negative numbers: ";
@@ -125,7 +146,6 @@ void Menu() {
 }
 
 int main() {
-    setlocale(LC_ALL, "RU");
     int choice = 0;
 
     while (true) {
