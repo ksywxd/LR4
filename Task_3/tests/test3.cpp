@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <func3.h>
+#include "func3.h"
 
 TEST(MatrixTest, OneElement) {
     int N = 1;

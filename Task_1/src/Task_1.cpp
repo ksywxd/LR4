@@ -1,10 +1,9 @@
 #include <iostream>
 #include <string>
 #include <sstream> //для 'сканера' текста (string stream)
+#include "../include/func.h"
 
-#include "include/func.h"
-
-/*void checkInputChoice(int& choice) {
+void checkInputChoice(int& choice) {
     while (true) {
         std::cout << "Start?\n1.YES\n2.EXIT\n3.Show menu\n";
         std::string line;
@@ -25,7 +24,7 @@
             std::cout << "Incorrect input. Enter a single number.\n";
         }
     }
-}*/
+}
 
 /*void checkInputIntK(int& k){
     while (true) {

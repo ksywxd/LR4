@@ -1,4 +1,4 @@
-#include <func3.h>
+#include "func3.h"
 
 bool checkIsMatrix(int N, int** arr){
     int* sumAllHorizontalLines = new int[N];

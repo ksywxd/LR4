@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <sstream> //для 'сканера' текста (string stream)
-#include <func3.h>
+#include "../include/func3.h"
 
 void checkInputChoice(int& choice) {
     while (true) {

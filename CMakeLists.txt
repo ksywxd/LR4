@@ -5,38 +5,36 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_subdirectory(googletest)
 
-include_directories(Task_1/include)
-include_directories(Task_3/include)
-
-# Task_1
+# Task 1 - основная программа
 add_executable(Task_1
-        Task_1/Task_1.cpp
-        Task_1/func.cpp
-        Task_1/include/func.h
+        Task_1/src/Task_1.cpp
+        Task_1/src/func.cpp
 )
 
-# Task_2
-add_executable(Task_2
-        Task_2/Task_2.cpp
+# Task 1 - тесты
+add_executable(Task_1_Tests
+        Task_1/tests/test1.cpp
+        Task_1/src/func.cpp
 )
 
-# Task_3
+# Подключаем заголовки для Task 1
+target_include_directories(Task_1 PRIVATE Task_1/include)
+target_include_directories(Task_1_Tests PRIVATE Task_1/include)
+target_link_libraries(Task_1_Tests gtest gtest_main)
+
+# Task 3 - основная программа
 add_executable(Task_3
-        Task_3/Task_3.cpp
-        Task_3/func3.cpp
-        Task_3/include/func3.h
+        Task_3/src/Task_3.cpp
+        Task_3/src/func3.cpp
 )
 
-# Тесты для Task_1
-add_executable(test1
-        tests/test1.cpp
-        Task_1/func.cpp
+# Task 3 - тесты
+add_executable(Task_3_Tests
+        Task_3/tests/test3.cpp
+        Task_3/src/func3.cpp
 )
-target_link_libraries(test1 gtest gtest_main)
 
-# Тесты для Task_3
-add_executable(test3
-        tests/test3.cpp
-        Task_3/Task_3.cpp
-)
-target_link_libraries(test3 gtest gtest_main)
+# Подключаем заголовки для Task 3
+target_include_directories(Task_3 PRIVATE Task_3/include)
+target_include_directories(Task_3_Tests PRIVATE Task_3/include)
+target_link_libraries(Task_3_Tests gtest gtest_main)
