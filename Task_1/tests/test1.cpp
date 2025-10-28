@@ -39,7 +39,7 @@ TEST(SplitArrayTest, MixedNumbers) {
 
     splitArray(input, 5, negativeArray, negativeCount, otherArray, otherCount);
 
-    // Проверяем количества
+    // проверяем количества
     EXPECT_EQ(negativeCount, 2);
     EXPECT_EQ(otherCount, 3);
 

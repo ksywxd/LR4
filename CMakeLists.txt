@@ -22,6 +22,23 @@ target_include_directories(Task_1 PRIVATE Task_1/include)
 target_include_directories(Task_1_Tests PRIVATE Task_1/include)
 target_link_libraries(Task_1_Tests gtest gtest_main)
 
+# Task 2 - основная программа
+add_executable(Task_2
+        Task_2/src/Task_2.cpp
+        Task_2/src/func.cpp
+)
+
+# Task 2 - тесты
+add_executable(Task_2_Tests
+        Task_2/tests/test2.cpp
+        Task_2/src/func.cpp
+)
+
+# Подключаем заголовки для Task 2
+target_include_directories(Task_2 PRIVATE Task_2/include)
+target_include_directories(Task_2_Tests PRIVATE Task_2/include)
+target_link_libraries(Task_2_Tests gtest gtest_main)
+
 # Task 3 - основная программа
 add_executable(Task_3
         Task_3/src/Task_3.cpp

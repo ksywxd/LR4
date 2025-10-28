@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <sstream> //для 'сканера' текста (string stream)
+#include <algorithm>
+#include "../include/func.h"
 
 void checkInputChoice(int& choice) {
     while (true) {
@@ -45,7 +47,7 @@ void checkInputIntK(int& k){
     }
 }
 
-void checkInputArray(int& x){
+void checkInputArray(double& x){
     while (true) {
         std::string line;
         if (!std::getline(std::cin, line)) {
@@ -61,6 +63,31 @@ void checkInputArray(int& x){
     }
 }
 
+/*int howManyElAbove(int M, int N) {
+    int count = 0;
+    if (M <= N)
+        count = (M * (2 * N - M - 1)) / 2;
+    else
+        count = (N * (N - 1)) / 2;
+    return count;
+}*/
+
+/*double findMax(int M, int N, double** arr) {
+    double* arrHigher = new double[howManyElAbove(M, N)];
+    int count2 = 0;
+    double max = 0;
+    for (int j = 0; j < N; j++){
+        for (int i = 0; i < M; i++){
+            if (i + j < N - 1){
+                arrHigher[count2++] = arr[i][j];
+                max = std::max(max, arr[i][j]);
+            }
+        }
+    }
+    delete[] arrHigher;
+    return max;
+}*/
+
 void Task() {
     int M = 0, N = 0;
     std::cout << "Enter the number of items in the column:" << std::endl;
@@ -68,7 +95,11 @@ void Task() {
     std::cout << "Enter the number of items per line:" << std::endl;
     checkInputIntK(N);
 
-    int arr[M][N];
+    double** arr = new double*[M];
+    for (int i = 0; i < N; i++){
+        arr[i] = new double[M];
+    }
+
     for (int i = 0; i < M; i++){
         for (int j = 0; j < N; j++){
             std::cout << "Enter element a" << i << j  << ": "<< std::endl;
@@ -84,39 +115,22 @@ void Task() {
         std::cout << std::endl;
     }
 
-    int count = 0;
-    if (M <= N){
-        count = (M * (2 * N - M - 1)) / 2;
-    }
-    else {
-        if (M > N){
-            count = (N * (N - 1)) / 2;
-        }
-        else {
-        std::cout << "There are no elements above the secondary axis." << std::endl;
-        }
-    }
-    int* arrHigher = new int[count];
+    if (howManyElAbove(M, N) != 0) {
 
-    int count2 = 0;
-    int max = arr[0][0];
-    for (int j = 0; j < N; j++){
-        for (int i = 0; i < M; i++){
-            if (i + j < N - 1){
-                arrHigher[count2++] = arr[i][j];
-                max = std::max(max, arr[i][j]);
-            }
-        }
-    }
-    std::cout << "Maximum element above the secondary axis: " << max << std::endl;
+        std::cout << "Maximum element above the secondary axis: " << findMax(M, N, arr) << std::endl;
 
-    delete[] arrHigher;
+    } else std::cout << "No elements above";
+
+    for (int i = 0; i < M; i++) {
+        delete[] arr[i];
+    }
+    delete[] arr;
 }
 
 void Menu() {
     std::cout << "\t Task 2\n";
     std::cout << "\tVariant 9\n" << std::endl;
-    std::wcout << "Find the maximum element of a two-dimensional array above the secondary axis.\n" << std::endl;
+    std::wcout << "Find the maximum element of a two-dimensional array above the secondary diagonal.\n" << std::endl;
     std::cout << "Creator: Kseniya Siamionava\n" << std:: endl;
 }
 
