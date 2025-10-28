@@ -30,6 +30,8 @@ TEST(CountElementsTest, SingleLine) {
     EXPECT_EQ(howManyElAbove(1, 5), 4);
 }
 
+//-----------------------------------------------------------------
+
 TEST(FindMaxTest, DoubleNumbers) {
     double** matrix = new double*[3];
     for (int i = 0; i < 3; i++) {
@@ -47,6 +49,4 @@ TEST(FindMaxTest, DoubleNumbers) {
     }
     delete[] matrix;
 }
-
-//-----------------------------------------------------------------
 
