@@ -1,7 +1,6 @@
 #include "func.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <stdint.h>
 
 int*** create3DArray(uint32_t n) {

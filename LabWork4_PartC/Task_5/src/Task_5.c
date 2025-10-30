@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include "func.h"
 
 void checkInputChoice(int* choice) {
     char line[1000];
@@ -128,11 +129,11 @@ void printField(int** arr, int M, int N) {
         printf("%d ", i);
         for (int j = 0; j < N; j++) {
             if (arr[i][j] == 9) {
-                printf("* ");
+                printf(" * ");
             } else if (arr[i][j] == 0) {
-                printf(". ");
+                printf(" . ");
             } else {
-                printf("%d ", arr[i][j]);
+                printf(" %d ", arr[i][j]);
             }
         }
         printf("\n");
@@ -176,13 +177,13 @@ void checkInputCountBomb(int* countBomb, int M, int N){
     }
 }
 
-void IfValid(int** arr, int i, int j, int M, int N) {
+/*void IfValid(int** arr, int i, int j, int M, int N) {
     if (i >= 0 && i < M && j >= 0 && j < N) {
         if (arr[i][j] != 9) {
             arr[i][j]++;
         }
     }
-}
+}*/
 
 void Task() {
     int N = 0, M = 0, countBomb = 0;
