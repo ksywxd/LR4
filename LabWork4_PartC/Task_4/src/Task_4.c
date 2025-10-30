@@ -220,7 +220,7 @@ void Task() {
     printf("Diagonal 3 sum: %lld\n", sums[2]);
     printf("Diagonal 4 sum: %lld\n", sums[3]);
 
-    printf("\nMaximum diagonal sum: %lld\n", findMaxSum(sums[0], sums[1], sums[2], sums[3]));
+    printf("\nMaximum diagonal sum: %lld\n", findMaxSum(sums));
 
     for (uint32_t i = 0; i < n; i++) {
         for (uint32_t j = 0; j < n; j++) {
