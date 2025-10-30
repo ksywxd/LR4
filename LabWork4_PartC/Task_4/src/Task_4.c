@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <errno.h>
 #include <time.h>
-#include <limits.h>
+#include "func.h"
 
 void checkInputChoice(int* choice) {
     char line[1000];
@@ -112,7 +112,7 @@ void Menu() {
     printf("Creator: Kseniya Siamionava\n\n");
 }
 
-void printFull3DArray(int ***arr, uint32_t n) {
+/*void printFull3DArray(int ***arr, uint32_t n) {
     for (uint32_t layer = 0; layer < n; layer++) {
         printf("Level %u:\n", layer);
 
@@ -125,6 +125,24 @@ void printFull3DArray(int ***arr, uint32_t n) {
         printf("\n");
     }
 }
+
+long long findMaxSum(long long* sums) {
+    long long max_sum = sums[0];
+    if (sums[1] > max_sum) max_sum = sums[1];
+    if (sums[2] > max_sum) max_sum = sums[2];
+    if (sums[3] > max_sum) max_sum = sums[3];
+    return max_sum;
+}
+
+void calculateDiagonals(int ***arr, uint32_t n, long long* sums) {
+    // Основные диагонали 3D куба
+    for (uint32_t i = 0; i < n; i++) {
+        sums[0] += arr[i][i][i];                          // (i,i,i)
+        sums[1] += arr[i][i][n-1-i];                     // (i,i,n-1-i)
+        sums[2] += arr[i][n-1-i][i];                     // (i,n-1-i,i)
+        sums[3] += arr[i][n-1-i][n-1-i];                // (i,n-1-i,n-1-i)
+    }
+}*/
 
 void Task() {
     uint32_t n;
@@ -195,27 +213,14 @@ void Task() {
 
     printFull3DArray(arr, n);
 
-    long long sum1 = 0, sum2 = 0, sum3 = 0, sum4 = 0;
+    long long sums[4];
+    calculateDiagonals(arr, n, sums);
+    printf("Diagonal 1 sum: %lld\n", sums[0]);
+    printf("Diagonal 2 sum: %lld\n", sums[1]);
+    printf("Diagonal 3 sum: %lld\n", sums[2]);
+    printf("Diagonal 4 sum: %lld\n", sums[3]);
 
-    //диагонали
-    for (uint32_t i = 0; i < n; i++) {
-        sum1 += arr[i][i][i];                          // (i,i,i)
-        sum2 += arr[i][i][n-1-i];                     // (i,i,n-1-i)
-        sum3 += arr[i][n-1-i][i];                     // (i,n-1-i,i)
-        sum4 += arr[i][n-1-i][n-1-i];                // (i,n-1-i,n-1-i)
-    }
-
-    printf("Diagonal 1 sum: %lld\n", sum1);
-    printf("Diagonal 2 sum: %lld\n", sum2);
-    printf("Diagonal 3 sum: %lld\n", sum3);
-    printf("Diagonal 4 sum: %lld\n", sum4);
-
-    long long max_sum = sum1;
-    if (sum2 > max_sum) max_sum = sum2;
-    if (sum3 > max_sum) max_sum = sum3;
-    if (sum4 > max_sum) max_sum = sum4;
-
-    printf("\nMaximum diagonal sum: %lld\n", max_sum);
+    printf("\nMaximum diagonal sum: %lld\n", findMaxSum(sums[0], sums[1], sums[2], sums[3]));
 
     for (uint32_t i = 0; i < n; i++) {
         for (uint32_t j = 0; j < n; j++) {
