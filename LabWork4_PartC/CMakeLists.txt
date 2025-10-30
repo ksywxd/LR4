@@ -15,7 +15,6 @@ set_target_properties(Task_4 PROPERTIES
         C_STANDARD_REQUIRED ON
 )
 
-
 # Task 4 - тесты
 add_executable(Task_4_Tests
         Task_4/tests/test4.cpp
@@ -45,7 +44,6 @@ set_target_properties(Task_5 PROPERTIES
         C_STANDARD_REQUIRED ON
 )
 
-
 # Task 5 - тесты
 add_executable(Task_5_Tests
         Task_5/tests/test5.cpp
@@ -62,3 +60,32 @@ set_target_properties(Task_5_Tests PROPERTIES
 target_include_directories(Task_5 PRIVATE Task_5/include)
 target_include_directories(Task_5_Tests PRIVATE Task_5/include)
 target_link_libraries(Task_5_Tests gtest gtest_main)
+
+# Task 6 - основная программа
+add_executable(Task_6
+        Task_6/src/Task_6.c
+        Task_6/src/func.c
+)
+
+# Устанавливаем стандарт C для основной программы
+set_target_properties(Task_6 PROPERTIES
+        C_STANDARD 11
+        C_STANDARD_REQUIRED ON
+)
+
+# Task 6 - тесты
+add_executable(Task_6_Tests
+        Task_6/tests/test6.cpp
+        Task_6/src/func.c
+)
+
+# Устанавливаем стандарт C++ для тестов
+set_target_properties(Task_6_Tests PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON
+)
+
+# Подключаем заголовки для Task 6
+target_include_directories(Task_6 PRIVATE Task_6/include)
+target_include_directories(Task_6_Tests PRIVATE Task_6/include)
+target_link_libraries(Task_6_Tests gtest gtest_main)
